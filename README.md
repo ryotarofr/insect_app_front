@@ -35,3 +35,4 @@ You can deploy the `dist` folder to any static host provider (netlify, surge, no
 
 ## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
 # insect_app_front
+# insect_app_front
