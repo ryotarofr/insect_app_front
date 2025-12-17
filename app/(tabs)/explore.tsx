@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, Alert } from 'react-native';
 
 import { Collapsible } from '@/components/ui/collapsible';
 import { ExternalLink } from '@/components/external-link';
@@ -8,8 +9,24 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
+import { BiometricAuthButton } from '@/components/biometric-auth-button';
 
 export default function TabTwoScreen() {
+  const [authCount, setAuthCount] = useState(0);
+
+  const handleAuthSuccess = () => {
+    setAuthCount(prev => prev + 1);
+    Alert.alert(
+      '認証成功',
+      `生体認証に成功しました！\n認証回数: ${authCount + 1}回`,
+      [{ text: 'OK' }]
+    );
+  };
+
+  const handleAuthFailure = (error: string) => {
+    console.log('認証失敗:', error);
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -31,6 +48,46 @@ export default function TabTwoScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
+
+      <Collapsible title="生体認証 (Biometric Authentication)">
+        <ThemedText style={styles.biometricDescription}>
+          このアプリは指紋認証や顔認証などの生体認証機能をサポートしています。
+          デバイスに登録された生体認証を使用してログインやセキュアな操作を実行できます。
+        </ThemedText>
+        <ThemedView style={styles.biometricContainer}>
+          <BiometricAuthButton
+            onAuthSuccess={handleAuthSuccess}
+            onAuthFailure={handleAuthFailure}
+            buttonText="生体認証を試す"
+            promptMessage="本人確認のため認証してください"
+            cancelLabel="キャンセル"
+            showSupportedTypes
+          />
+          {authCount > 0 && (
+            <ThemedText style={styles.authCountText}>
+              認証成功回数: {authCount}回
+            </ThemedText>
+          )}
+        </ThemedView>
+        <ThemedText style={styles.usageNote}>
+          使い方:
+        </ThemedText>
+        <ThemedText style={styles.codeExample}>
+          {`import { BiometricAuthButton } from '@/components/biometric-auth-button';
+
+<BiometricAuthButton
+  onAuthSuccess={() => {
+    // 認証成功時の処理
+  }}
+  onAuthFailure={(error) => {
+    // 認証失敗時の処理
+  }}
+/>`}
+        </ThemedText>
+        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/local-authentication/">
+          <ThemedText type="link">Expo LocalAuthenticationについて詳しく見る</ThemedText>
+        </ExternalLink>
+      </Collapsible>
       <Collapsible title="File-based routing">
         <ThemedText>
           This app has two screens:{' '}
@@ -108,5 +165,32 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  biometricDescription: {
+    marginBottom: 16,
+    lineHeight: 22,
+  },
+  biometricContainer: {
+    alignItems: 'center',
+    paddingVertical: 20,
+    gap: 12,
+  },
+  authCountText: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 8,
+  },
+  usageNote: {
+    marginTop: 20,
+    marginBottom: 8,
+    fontWeight: '600',
+  },
+  codeExample: {
+    fontFamily: Platform.select({ ios: 'Menlo', android: 'monospace', default: 'monospace' }),
+    fontSize: 12,
+    padding: 12,
+    backgroundColor: 'rgba(128, 128, 128, 0.1)',
+    borderRadius: 8,
+    marginVertical: 8,
   },
 });
