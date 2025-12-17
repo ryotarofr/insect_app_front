@@ -1,11 +1,11 @@
 ## Usage
 
 ```bash
-$ bun install
+$ pnpm install
 ```
 
 ```bash
-$ bun dev
+$ pnpm start
 ```
 
 ## サイトマップ
