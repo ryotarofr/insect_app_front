@@ -1,93 +1,62 @@
-## Usage
+# SolidStart
+
+Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+
+## Features
+
+- Excalidraw integration - Draw diagrams and sketches with Excalidraw
+
+## Creating a project
 
 ```bash
-$ pnpm install
+# create a new project in the current directory
+npm init solid@latest
+
+# create a new project in my-app
+npm init solid@latest my-app
 ```
+
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
-$ pnpm start
+bun dev
+
+# or with npm
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-## サイトマップ
+## Using Excalidraw
 
-```mermaid
-graph TD
-    A[トップページ] --> B[商品一覧]
-    A --> C[カテゴリー別一覧]
-    A --> D[検索結果]
-    A --> E[特集ページ]
-    A --> F[会員登録/ログイン]
+This project includes Excalidraw integration for drawing diagrams and sketches.
 
-    B --> G[商品詳細]
-    C --> G
-    D --> G
+### Quick Start
 
-    G --> H[カート]
-
-    H --> I[購入フロー]
-    I --> J[配送先入力]
-    J --> K[配送方法選択]
-    K --> L[支払い方法選択]
-    L --> M[注文確認]
-    M --> N[注文完了]
-
-    A --> O[マイページ]
-    O --> P[会員情報編集]
-    O --> Q[注文履歴]
-    O --> R[お気に入り]
-    O --> S[配送先管理]
-    O --> T[ポイント履歴]
-
-    Q --> U[注文詳細]
-
-    A --> V[お問い合わせ]
-    A --> W[FAQ]
-    A --> X[会社概要]
-    A --> Y[利用規約]
-    A --> Z[特定商取引法]
-    A --> AA[プライバシーポリシー]
-
-    %% タイムライン機能
-    A --> AB[タイムライン]
-    AB --> AC[投稿詳細]
-    AC --> AD[返信スレッド]
-
-    AB --> AE[ハッシュタグ検索]
-    AB --> AF[トレンド]
-
-    O --> AG[自分の投稿一覧]
-    O --> AH[フォロー/フォロワー管理]
-    O --> AI[通知設定]
-
-    AG --> AC
-    AH --> AJ[ユーザープロフィール]
-    AJ --> AK[ユーザーの投稿一覧]
-    AJ --> AL[ユーザーの飼育記録]
-
-    AB --> AM[投稿作成]
-    AM --> AN[画像アップロード]
-    AM --> AO[ハッシュタグ付与]
-
-    AC --> AP[いいね/リポスト]
-    AC --> AQ[ブックマーク]
-
-    O --> AR[ブックマーク一覧]
-    AR --> AC
-
-    %% 飼育記録機能（昆虫特化）
-    O --> AS[飼育記録]
-    AS --> AT[個体管理]
-    AT --> AU[成長記録]
-    AT --> AV[ブリード記録]
-    AT --> AW[温度湿度ログ]
-
-    G --> AT
-
-    style A fill:#4CAF50,color:#fff
-    style G fill:#2196F3,color:#fff
-    style H fill:#FF9800,color:#fff
-    style N fill:#F44336,color:#fff
-    style O fill:#9C27B0,color:#fff
-    style AB fill:#1DA1F2,color:#fff
-    style AS fill:#00BCD4,color:#fff
+1. Start the development server:
+```bash
+bun dev
 ```
+
+2. Navigate to `/excalidraw` in your browser or click the "Excalidraw" link in the navigation.
+
+### Features
+
+- Interactive drawing canvas
+- Add shapes programmatically
+- Export to JSON
+- Clear canvas
+- Full Excalidraw functionality
+
+For detailed documentation, see [EXCALIDRAW_SOLIDJS.md](./EXCALIDRAW_SOLIDJS.md).
+
+## Building
+
+Solid apps are built with _presets_, which optimise your project for deployment to different environments.
+
+By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
+
+## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
